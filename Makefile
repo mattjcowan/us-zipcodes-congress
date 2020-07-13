@@ -1,8 +1,9 @@
 all: clean zccd.csv zccd_hud.csv
 
 clean:
-	rm -f raw/*
+	mkdir -p raw
 	rm -f zccd.csv
+	rm -f zccd_hud.csv
 
 zccd.csv: raw/natl_zccd_delim.txt  raw/zcta_county_rel_10.txt raw/state_fips.txt raw/zccd_updates.txt
 	python merge_data.py
@@ -10,10 +11,16 @@ zccd.csv: raw/natl_zccd_delim.txt  raw/zcta_county_rel_10.txt raw/state_fips.txt
 zccd_hud.csv: raw/hud_crosswalk.xlsx
 	python hud_crosswalk.py
 
+# MOST OF THESE FROM: 
+//https://www.census.gov/geographies/reference-files/2010/geo/relationship-files.html
+
 # Congressional districts by zip code tabulation area (ZCTA) national, comma delimited
 # NB: does not include at-large districts for AK, DE, MT, ND, SD, VT, WY, PR or DC
+# 2010 ZCTA to County Relationship File
+# Explanation of the 2010 ZCTA to County Relationship File (http://www2.census.gov/geo/pdfs/maps-data/data/rel/explanation_zcta_county_rel_10.pdf?#)
+# previous: https://www2.census.gov/geo/relfiles/cdsld16/natl/natl_zccd_delim.txt
 raw/natl_zccd_delim.txt:
-	curl "https://www2.census.gov/geo/relfiles/cdsld16/natl/natl_zccd_delim.txt" -k -o raw/natl_zccd_delim.txt
+	curl "https://www2.census.gov/geo/relfiles/cdsld18/natl/natl_zccd_delim.txt" -k -o raw/natl_zccd_delim.txt
 
 # inter-censal changes to congressional districts are released only for updated states
 # necessary for CO, FL, MN, NC, PA, VA
