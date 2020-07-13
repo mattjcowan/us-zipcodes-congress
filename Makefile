@@ -2,6 +2,8 @@ all: clean zccd.csv zccd_hud.csv
 
 clean:
 	mkdir -p raw
+	rm -r raw
+	mkdir -p raw
 	rm -f zccd.csv
 	rm -f zccd_hud.csv
 
