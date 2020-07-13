@@ -17,7 +17,7 @@ def csv_writer(filename, data, fields=None, delimiter=',', quoting=csv.QUOTE_MIN
     with open(filename, 'w') as f:
         if not fields:
             fields = data[0].keys()
-        writer = csv.DictWriter(f, fieldnames=fields, delimiter=delimiter, quoting=quoting)
+        writer = csv.DictWriter(f, fieldnames=fields, delimiter=delimiter, quoting=quoting, lineterminator='\n')
         writer.writeheader()
         for row in data:
             writer.writerow(row)
